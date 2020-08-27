@@ -32,7 +32,8 @@ $db = new ezSQL_mysqli($db_user,$db_password,$db_name,$db_host);
 	    return $res;
 
 	}
+     function login(){
+     	
+     }
 }
-
-
 ?>
