@@ -11,7 +11,17 @@ $exists = $db->get_row("SELECT * FROM tbluser WHERE email='".$email."' ");
   if($exists) {
             $error = 2;
   } else {
-     $db->query("INSERT INTO tbluser (fullname,user_type,email,mobile,password,status,create_at,update_at) VALUES ('".$name."','1','".$email."','".$mobile."','".$hashpassword."','1',NOW(),NOW())");
+    $table="tbluser";
+    $fields="fullname,user_type,email,mobile,password,status,create_at,update_at";
+
+    $values="'".$name."','1','".$email."','".$mobile."','".$hashpassword."','1',NOW(),NOW()";
+
+     $va=$data->Insert($table,$fields,$values);
+     if($va){
+      $error=3;
+     }else{
+      $error=4;
+     }
   }
      
 }
