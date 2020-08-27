@@ -18,7 +18,9 @@ $db = new ezSQL_mysqli($db_user,$db_password,$db_name,$db_host);
 
 include(DIR."/includes/class.common.php");
 include(DIR."/includes/class.mail.php");
+include(DIR."/includes/class.database.php");
 
+$data= new DataBase();
 define('SITENAME','Vidhipatra');
 $http = HTTP; //HOST NAME
 $meta['title'] = '';
