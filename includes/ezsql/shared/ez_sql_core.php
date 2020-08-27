@@ -167,7 +167,7 @@
 			// If the output is an object then return object using the row offset..
 			if ( $output == OBJECT )
 			{
-				return $this->last_result[$y]?$this->last_result[$y]:null;
+				return isset($this->last_result[$y])?$this->last_result[$y]:null;
 			}
 			// If the output is an associative array then return row as such..
 			elseif ( $output == ARRAY_A )
