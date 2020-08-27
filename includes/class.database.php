@@ -4,45 +4,30 @@
  */
 class Database 
 {
-	
+	   private $db_user = 'root';			//DB USERNAME
+       private $db_password = '';			//DB PASSWORD 
+       private $db_name = 'employee';		//DB NAME
+       private $db_host = 'localhost';		//DB SERVER
 	function __construct()
 	{
-		$db_user = 'root';			//DB USERNAME
-$db_password = '';			//DB PASSWORD 
-$db_name = 'employee';		//DB NAME
-$db_host = 'localhost';		//DB SERVER
-// Include the class:
-include_once "ezsql/shared/ez_sql_core.php";
-include_once "ezsql/mysqli/ez_sql_mysqli.php";
-$db = new ezSQL_mysqli($db_user,$db_password,$db_name,$db_host);
-	}
+     // Include the class:
+     include_once "ezsql/shared/ez_sql_core.php";
+     include_once "ezsql/mysqli/ez_sql_mysqli.php";
+     $this->db = new ezSQL_mysqli($this->db_user,$this->db_password,$this->db_name,$this->db_host);
+    }
 
 	function Insert($table,$fields,$values){
-		$db_user = 'root';			//DB USERNAME
-$db_password = '';			//DB PASSWORD 
-$db_name = 'employee';		//DB NAME
-$db_host = 'localhost';		//DB SERVER
-// Include the class:
-include_once "ezsql/shared/ez_sql_core.php";
-include_once "ezsql/mysqli/ez_sql_mysqli.php";
-$db = new ezSQL_mysqli($db_user,$db_password,$db_name,$db_host);
+		
 		$statement='';
 	    $statement="INSERT INTO ".$table."(".$fields.") VALUES (".$values.");";
-	    $res=$db->query($statement);
+	    $res=$this->db->query($statement);
 	    return $res;
 
 	}
      function login($email,$password){
-     	$db_user = 'root';			//DB USERNAME
-$db_password = '';			//DB PASSWORD 
-$db_name = 'employee';		//DB NAME
-$db_host = 'localhost';		//DB SERVER
-// Include the class:
-include_once "ezsql/shared/ez_sql_core.php";
-include_once "ezsql/mysqli/ez_sql_mysqli.php";
-$db = new ezSQL_mysqli($db_user,$db_password,$db_name,$db_host);
+     	
      	$hashPassword=hashPassword($password);
-     	$row = $db->get_row("SELECT * FROM tbluser   WHERE email='".$email."' AND password='".$hashPassword."' AND status=1 ");
+     	$row = $this->db->get_row("SELECT * FROM tbluser   WHERE email='".$email."' AND password='".$hashPassword."' AND status=1 ");
 
             if($row) {
              return $row;   
@@ -50,6 +35,15 @@ $db = new ezSQL_mysqli($db_user,$db_password,$db_name,$db_host);
             	return FALSE;
             }    
      	
+     }
+     function SelectAll($table){
+     	$statement="SELECT * FROM ".$table;
+     	$data=$this->db->get_results($statement);
+     	if($data){
+     		return $data;
+     	}else{
+     		return FALSE;
+     	}
      }
 }
 ?>
