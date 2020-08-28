@@ -70,7 +70,16 @@ class Database
      		return $data;
      	}else{
      		return FALSE;
-     	}
+     	}$id=$db->insert_id;
      }
+     function insertId($table,$fields,$values){
+		
+		$statement='';
+	    $statement="INSERT INTO ".$table."(".$fields.") VALUES (".$values.");";
+	    $res=$this->db->query($statement);
+	    $id=$this->db->insert_id;
+	    return $id;
+
+	}
 }
 ?>
