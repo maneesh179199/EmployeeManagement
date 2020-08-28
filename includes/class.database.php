@@ -54,5 +54,23 @@ class Database
      		return FALSE;
      	}
      }
+     function selectFieldsWithId($table,$field){
+     	$statement="SELECT id,".$field." FROM ".$table." ;";
+     	$data=$this->db->get_results($statement);
+     	if($data){
+     		return $data;
+     	}else{
+     		return FALSE;
+     	}
+     }
+     function selectOneJoin($table1,$table2,$joinfield,$selectcoloumn){
+     	$statement="SELECT t1.*,t2.".$selectcoloumn." FROM ".$table1." t1 JOIN ".$table2." t2 ON t1.".$joinfield."= t2.id ;";
+     	$data=$this->db->get_results($statement);
+     	if($data){
+     		return $data;
+     	}else{
+     		return FALSE;
+     	}
+     }
 }
 ?>

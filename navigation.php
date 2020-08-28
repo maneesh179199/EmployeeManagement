@@ -76,15 +76,56 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="users.php" class="nav-link">
+                <a href="departments.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>All Users</p>
+                  <p>All Departments</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
+                <a href="designation-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
+                  <p>Add Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="designations.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Designations</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Employees
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="employee-add.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New Application</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="departments.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Departments</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="designation-add.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="designations.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Designations</p>
                 </a>
               </li>
             </ul>
@@ -570,6 +611,12 @@
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Important</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="logout.php" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Log Out</p>
             </a>
           </li>
           <li class="nav-item">
