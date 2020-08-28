@@ -34,7 +34,7 @@ $exists = $data->exist("tblemployee",'email',$email);
       }
       if($sFile!='') {
         $resume = $sFile;
-        $db->query("UPDATE `tblemployee` SET `resume`='".$resume."' WHERE id='".$id."'");
+        $data->updateFilePath($table,'resume',$resume,$id);
       }
       
   }
