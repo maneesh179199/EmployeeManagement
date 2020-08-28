@@ -45,5 +45,14 @@ class Database
      		return FALSE;
      	}
      }
+     function exist($table,$field,$value){
+     	$statement="SELECT * FROM ".$table." WHERE ".$field."='".$value."' ;";
+     	$data=$this->db->get_row($statement);
+     	if($data){
+     		return $data;
+     	}else{
+     		return FALSE;
+     	}
+     }
 }
 ?>

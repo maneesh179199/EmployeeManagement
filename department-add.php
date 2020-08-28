@@ -2,9 +2,9 @@
 include('config.php');
 if(isset($_POST['submit'])){
 $name=$db->escape($_POST['department']);
-
-
-$exists = $db->get_row("SELECT * FROM tbluser WHERE email='".$email."' ");
+$table="tbldepartment";
+$data->exist($table,"department",$name);
+$exists = $data->exist($table,"department",$name);
         
   if($exists) {
             $error = 2;
