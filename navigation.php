@@ -107,13 +107,13 @@
               <li class="nav-item">
                 <a href="employee-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>New Application</p>
+                  <p>Add New Application</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="departments.php" class="nav-link">
+                <a href="employee_applications.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>All Departments</p>
+                  <p>All Application</p>
                 </a>
               </li>
               <li class="nav-item">

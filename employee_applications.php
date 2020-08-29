@@ -1,57 +1,31 @@
-<?php
-include('config.php');
-include('includes/class.fileupload.php');
-$fls = new fileUpload();
-if(isset($_POST['submit'])){
-$firstname=$db->escape($_POST['firstname']);
-$lastname=$db->escape($_POST['lastname']);
-$gender=$db->escape($_POST['gender']);
-$email=$db->escape($_POST['email']);
-$mobile1=$db->escape($_POST['mobile1']);
-$mobile2=$db->escape($_POST['mobile2']);
-$designation_id=$db->escape($_POST['designation']);
-$previous_company=$db->escape($_POST['prev_company']);
-$previous_salary=$db->escape($_POST['prev_salary']);
-$status=0;
-
-$exists = $data->exist("tblemployee",'email',$email);
-  if($exists) {
-      $error = 2;
-  } else {
-    $table="tblemployee";
-    $fields="firstname, `lastname`, `gender`, `email`, `mobile1`, `mobile2`, `designation_id`, `previous_company`, `previous_salary`, `status`, `create_at`, `update_at`";
-    $values="'".$firstname."','".$lastname."','".$gender."','".$email."','".$mobile1."','".$mobile2."','".$designation_id."','".$previous_company."','".$previous_salary."','".$status."',NOW(),NOW()";
-
-     $id=$data->Insert($table,$fields,$values);
-     $uploads = "uploads/employee";
-      $upload_path = $uploads;
-      
-      $sFile="";
-      if($_FILES['resume']['name']!='') {
-        $sFile = $_FILES['resume']['name'];
-        $tmpfile = $_FILES['resume']['tmp_name'];
-        $sFile = $fls->fileUploader($sFile,$upload_path."/",$tmpfile);
-      }
-      if($sFile!='') {
-        $resume = $sFile;
-        $data->updateFilePath($table,'resume',$resume,$id);
-      }
-      
-  }
-     
+<?php 
+session_start();
+if(!isset($_SESSION['user'])){
+header("location:index.php");
 }
-$designations=$data->selectOneJoin("tbldesignation","tbldepartment","department_id","department");
+include("config.php");
+$table1="tblemployee";
+$table2="tbldesignation";
+$joinfield="designation_id";
+$selectcoloumn="designation";
+$applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloumn);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Employee Management | Add User</title>
+  <title>AdminLTE 3 | DataTables</title>
+  <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -206,7 +180,7 @@ $designations=$data->selectOneJoin("tbldesignation","tbldepartment","department_
       </div>
 
       <!-- Sidebar Menu -->
-     <?php include("navigation.php");?>
+      <?php include("navigation.php");?>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -219,12 +193,12 @@ $designations=$data->selectOneJoin("tbldesignation","tbldepartment","department_
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>New Application</h1>
+            <h1>Designation List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Employee</li>
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Designation</li>
             </ol>
           </div>
         </div>
@@ -235,89 +209,83 @@ $designations=$data->selectOneJoin("tbldesignation","tbldepartment","department_
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
+          <div class="col-12">
+            <div class="card">
               <div class="card-header">
-                <h3 class="card-title">New Application</h3>
+                <h3 class="card-title">Designation Table</h3>
               </div>
               <!-- /.card-header -->
-              <!-- form start -->
-              <form role="form"  enctype="multipart/form-data" action="" method="post">
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">First Name</label>
-                    <input type="text" name="firstname" class="form-control" id="exampleInputFirstName" placeholder="Enter First Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Last Name</label>
-                    <input type="text" name="lastname" class="form-control" id="exampleInputLastName" placeholder="Enter Last Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputGender">Gender</label>
-                    <SELECT  name="gender" class="form-control" id="exampleInputGender">
-                      <option value="f">Female</option>
-                      <option value="m">Male</option>
-                      <option value="o">Other</option>
-                    </SELECT>   
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Mobile</label>
-                    <input type="text" name="mobile1" class="form-control" id="examplePhone" placeholder="Enter Phone Number">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Mobile2</label>
-                    <input type="text" name="mobile2" class="form-control" id="examplePhone" placeholder="Enter Alternate Phone Number">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Applied For</label>
-                    <select name="designation" class="form-control" id="exampleInputDepartment" >
-                      <option value="">Select</option>
-                      <?php foreach ($designations as $designation) { ?>
-                       <option value="<?php echo $designation->id;?>"><?php echo $designation->designation."( ".$designation->department." )";?></option>
-                     <?php } ?>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">Resume</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" required="required" name="resume" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                    </div>
-                  </div>  
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Previous Company</label>
-                    <input type="text" name="prev_company" class="form-control" id="exampleInputPassword1" placeholder="Previous Company">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Previous Salary</label>
-                    <input type="number" name="prev_salary" class="form-control" id="exampleInputPassword1" placeholder="Previous Salary">
-                  </div>
-                  
-                  
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>SNo.</th>
+                    <th>Fullname</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Alternate No.</th>
+                    <th>Applied For</th>
+                    <th>Previous Company</th>
+                    <th>Previous Salary</th>
+                    <th>Action</th>
+                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <?php if($applied_employees){ $i=1; 
+                      foreach ($applied_employees as $employee) { ?>
+                      
+                  <tr>
+                    <td><?php echo $i++;?> </td>
+                    <td><?php echo $employee->firstname." ".$employee->lastname;?>
+                    </td>
+                    <td><?php echo $employee->email;?>
+                    </td>
+                    <td><?php echo $employee->mobile1;?>
+                    </td>
+                    <td><?php echo $employee->mobile2;?>
+                    </td>
+                    <td><?php echo $employee->designation;?>
+                    </td>
+                    <td><?php echo $employee->previous_company;?>
+                    </td>
+                    <td><?php echo $employee->previous_salary;?>
+                    </td>
+                    <td>Edit & Delete</td>
+                    
+                  </tr>
+                  <?php }
+                   }else { ?>
+                   <tr><td width="100%">No Result Found</td></tr>
+                <?php    } ?> 
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>SNo.</th>
+                    <th>Fullname</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Alternate No.</th>
+                    <th>Applied For</th>
+                    <th>Previous Company</th>
+                    <th>Previous Salary</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
             <!-- /.card -->
 
+           
+            <!-- /.card -->
           </div>
-          <!--/.col (left) -->
-          
+          <!-- /.col -->
         </div>
         <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
@@ -342,16 +310,32 @@ $designations=$data->selectOneJoin("tbldesignation","tbldepartment","department_
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- bs-custom-file-input -->
-<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-  bsCustomFileInput.init();
-});
+<!-- page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 </script>
 </body>
 </html>

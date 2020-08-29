@@ -63,8 +63,8 @@ class Database
      		return FALSE;
      	}
      }
-     function selectOneJoin($table1,$table2,$joinfield,$selectcoloumn){
-     	$statement="SELECT t1.*,t2.".$selectcoloumn." FROM ".$table1." t1 JOIN ".$table2." t2 ON t1.".$joinfield."= t2.id ;";
+     function selectOneJoin($table1,$table2,$joinfield,$selectcoloumn,$condition='1=1'){
+     	$statement="SELECT t1.*,t2.".$selectcoloumn." FROM ".$table1." t1 JOIN ".$table2." t2 ON t1.".$joinfield."= t2.id WHERE ".$condition.";";
      	$data=$this->db->get_results($statement);
      	if($data){
      		return $data;
