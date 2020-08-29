@@ -270,6 +270,7 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                     <th>Mobile</th>
                     <th>Alternate No.</th>
                     <th>Applied For</th>
+                    <th>Resume</th>
                     <th>Previous Company</th>
                     <th>Previous Salary</th>
                     <th>Action</th>

@@ -82,7 +82,7 @@ class Database
 
 	}
     function updateFilePath($table,$field,$value,$id){
-        $statement="UPDATE ".$table."SET ".$field."= '".$value."'WHERE id='".$id."'";
+        $statement="UPDATE ".$table." SET ".$field." = '".$value."' WHERE id='".$id."'";
         $update=$this->db->query($statement);
         if($update){
             return TRUE;
