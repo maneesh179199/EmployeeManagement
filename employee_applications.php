@@ -225,6 +225,7 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                     <th>Mobile</th>
                     <th>Alternate No.</th>
                     <th>Applied For</th>
+                    <th>Resume</th>
                     <th>Previous Company</th>
                     <th>Previous Salary</th>
                     <th>Action</th>
@@ -246,6 +247,8 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                     <td><?php echo $employee->mobile2;?>
                     </td>
                     <td><?php echo $employee->designation;?>
+                    </td>
+                    <td><a href="uploads/employee/<?php echo $employee->resume;?>" target="_blank">Resume</a>
                     </td>
                     <td><?php echo $employee->previous_company;?>
                     </td>
