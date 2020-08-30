@@ -8,6 +8,7 @@ $table1="tblemployee";
 $table2="tbldesignation";
 $joinfield="designation_id";
 $selectcoloumn="designation";
+$condition="t1.interview=0 AND t1.status=0";
 $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloumn);
 ?>
 <!DOCTYPE html>
@@ -104,7 +105,7 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -159,12 +160,12 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png"
+    <a href="index3.html" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Employee Mangement</span>
     </a>
 
     <!-- Sidebar -->
@@ -215,7 +216,7 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                 <h3 class="card-title">Designation Table</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" >
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
@@ -226,8 +227,10 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                     <th>Alternate No.</th>
                     <th>Applied For</th>
                     <th>Resume</th>
+                    <th>Portfolio</th>
                     <th>Previous Company</th>
                     <th>Previous Salary</th>
+                    <th>Interview Action</th>
                     <th>Action</th>
                     
                   </tr>
@@ -250,11 +253,26 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                     </td>
                     <td><a href="uploads/employee/<?php echo $employee->resume;?>" target="_blank">Resume</a>
                     </td>
+                    <td><a href="uploads/employee/<?php echo $employee->portfolio;?>" target="_blank">PortFolio</a>
+                    </td>
                     <td><?php echo $employee->previous_company;?>
                     </td>
                     <td><?php echo $employee->previous_salary;?>
                     </td>
-                    <td>Edit & Delete</td>
+                    <td>Interview Action</td>
+                   <td class="project-actions text-right">
+                          
+                          <a class="btn btn-info btn-sm" href="#">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
                     
                   </tr>
                   <?php }
@@ -271,8 +289,10 @@ $applied_employees=$data->selectOneJoin($table1,$table2,$joinfield,$selectcoloum
                     <th>Alternate No.</th>
                     <th>Applied For</th>
                     <th>Resume</th>
+                    <th>Portfolio</th>
                     <th>Previous Company</th>
                     <th>Previous Salary</th>
+                    <th>Interview Action</th>
                     <th>Action</th>
                   </tr>
                   </tfoot>

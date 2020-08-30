@@ -36,6 +36,16 @@ $exists = $data->exist("tblemployee",'email',$email);
         $resume = $sFile;
         $data->updateFilePath($table,'resume',$resume,$id);
       }
+      $pf="";
+      if($_FILES['portfolio']['name']!='') {
+        $pf = $_FILES['portfolio']['name'];
+        $tmpfile = $_FILES['portfolio']['tmp_name'];
+        $pf = $fls->fileUploader($pf,$upload_path."/",$tmpfile);
+      }
+      if($sFile!='') {
+        $portfolio = $sFile;
+        $data->updateFilePath($table,'portfolio',$portfolio,$id);
+      }
       
   }
      
@@ -289,6 +299,15 @@ $designations=$data->selectOneJoin("tbldesignation","tbldepartment","department_
                       <div class="custom-file">
                         <input type="file" required="required" name="resume" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPortfolio">Portfolio</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" required="required" name="portfolio" class="custom-file-input" id="exampleInputPortfolio">
+                        <label class="custom-file-label" for="exampleInputPortfolio">Choose file</label>
                       </div>
                     </div>
                   </div>  
